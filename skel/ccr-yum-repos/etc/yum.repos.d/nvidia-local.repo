@@ -1,0 +1,6 @@
+[nvidia-local]
+name=NVidia Local Cuda Repo for RHEL7
+baseurl=http://mirrors.cbls.ccr.buffalo.edu/nvidia/production
+enabled=1
+gpgcheck=1
+gpgkey=http://mirrors.cbls.ccr.buffalo.edu/nvidia/production/7fa2af80.pub

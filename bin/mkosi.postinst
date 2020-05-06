@@ -1,0 +1,100 @@
+#!/bin/bash
+#
+# This script runs dracut to build an initramfs with livenet support. Meant to
+# be run as a mkosi.postinst script from within a systemd-nspawn container.
+#
+# Copyright 2020 University at Buffalo. All rights reserved.
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Author: Andrew E. Bruno <aebruno2@buffalo.edu>
+#
+
+# Source os-release to give us $NAME and $VERSION_ID. This allows for
+# detecting which Linux distro and version we're running on
+. /etc/os-release
+
+# Log info messages
+log_info() {
+  printf "\n\e[0;35m $1\e[0m\n\n"
+}
+
+# Copy kernel and initramfs to staging directory. Run dracut to add the livenet
+# and dmsquash-live modules to the initramfs. This enables PXE booting using a
+# rootfs retrieved over HTTP. In the mkosi.finalize stage we will create the
+# LiveOS squashfs.img image file to be used as the rootfs for livenet. The
+# kernel and initramfs will then be removed from the final image.
+make_initrd () {
+    log_info "Building initrd with livenet support..."
+    local kver=$(basename /usr/lib/modules/*)
+    local dest="/srv/pxelive"
+    local initrd="initramfs-${kver}.img"
+    local vmlinuz="vmlinuz-${kver}"
+
+    if [ ! -f "/boot/$initrd" ]; then
+        # Try alternate naming (ubuntu/debian)
+        initrd="initrd.img-${kver}"
+    fi
+
+    if [ ! -f "/boot/$initrd" ]; then
+        # Bail if still can't find initrd
+        log_info "Failed to find initrd! Exiting..."
+        exit 1
+    fi
+
+
+    mkdir -p $dest
+
+    cp /boot/$vmlinuz $dest/vmlinuz
+    cp /boot/$initrd $dest/initramfs.img
+
+    # XXX Trim this list down to only what we need for livenet?
+    dracut -v --no-hostonly --add "network base dmsquash-live livenet kernel-modules uefi-lib rootfs-block" --force $dest/initramfs.img $kver
+}
+
+# Ubuntu networking fixes. This bit of code fixes 2 issues found with Ubuntu images:
+#
+# 1. NetworkManager was not managing the wired connections after live booting. 
+#    See: https://bugs.launchpad.net/ubuntu/+source/network-manager/+bug/1658921
+#
+# 2. Disable the stub resolver. Ensure resolv.conf symlinks to the dynamic
+#    resolv.conf provided by systemd-resolved.  This will use DNS settings from
+#    DHCP which is what we want. See: https://askubuntu.com/a/938703
+ubuntu_fix_networking () {
+    log_info "Fixing Ubuntu networking..."
+    touch /etc/NetworkManager/conf.d/10-globally-managed-devices.conf
+    rm -f /etc/resolv.conf
+    ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+}
+
+# Run all postinst functions
+do_postinst () {
+    log_info "Running post install..."
+    # Fix networking in Ubuntu focal
+    if [[ "$NAME" == "Ubuntu" ]] && [[ "$VERSION_ID" == *"20.04"* ]]; then
+        ubuntu_fix_networking
+    fi
+
+    make_initrd
+}
+
+# Per mkosi docs, this script is called with a verb (build or final) as the
+# first argument. This allows the script to be called at both the build and
+# final stages. We're only interested in the final stage for now.
+case "$1" in
+    final) do_postinst
+        ;;
+    *) echo "Unsupported verb: $1"
+        ;;
+esac

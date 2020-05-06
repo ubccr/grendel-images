@@ -1,0 +1,6 @@
+[turbovnc-local]
+name=TurboVNC official RPMs
+baseurl=http://mirrors.cbls.ccr.buffalo.edu/TurboVNC/production
+enabled=1
+gpgcheck=1
+gpgkey=http://mirrors.cbls.ccr.buffalo.edu/TurboVNC/production/RPM-GPG-KEY-TurboVNC

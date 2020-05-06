@@ -1,0 +1,40 @@
+[Distribution]
+Distribution=ubuntu
+Release=bionic
+Repositories=main,contrib,universe,multiverse,restricted
+
+[Validation]
+PasswordIsHashed=yes
+
+[Partitions]
+RootSize=5G
+
+[Output]
+Format=directory
+Output=ubuntu-bionic
+
+[Packages]
+WithNetwork=yes
+Packages=
+    chrony
+    curl
+    dracut
+    dracut-network
+    network-manager
+    efibootmgr
+    grub-efi-amd64
+    grub-efi-amd64-bin
+    grub-efi-amd64-signed
+    htop
+    ssh
+    shim
+    shim-signed
+    squashfs-tools
+    sudo
+    vim
+    isc-dhcp-client
+    wget
+    tzdata
+    linux-generic
+    binutils
+    net-tools

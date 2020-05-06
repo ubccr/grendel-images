@@ -1,0 +1,46 @@
+[Distribution]
+Distribution=centos_epel
+Release=7
+Repositories=base,updates,extras
+
+[Validation]
+PasswordIsHashed=yes
+
+[Partitions]
+RootSize=5G
+
+[Output]
+Format=directory
+Output=centos7
+
+[Packages]
+WithNetwork=yes
+Packages=
+    @base
+    @core
+    biosdevname
+    chrony
+    curl
+    dhclient
+    dracut-network
+    efibootmgr
+    grub2
+    grub2-efi-x64
+    grub2-tools
+    grub2-tools-efi
+    grub2-tools-extra
+    grub2-tools-minimal
+    htop
+    keyutils
+    net-tools
+    NetworkManager
+    nfs-utils
+    openssh-server
+    policycoreutils
+    rsyslog
+    shim-x64
+    squashfs-tools
+    sudo
+    vim
+    wget
+    yum

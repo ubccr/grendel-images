@@ -1,0 +1,7 @@
+[ccr-centos-local]
+name=CCR Built Centos Packages
+baseurl=http://mirrors.cbls.ccr.buffalo.edu/ccr/centos/production/7/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=http://mirrors.cbls.ccr.buffalo.edu/ccr/RPM-GPG-KEY-ccrpkg
+priority=99

@@ -1,0 +1,51 @@
+[Distribution]
+Distribution=centos_epel
+Release=7
+Repositories=base,updates,extras,ccr-centos-local,dell-system-update_independent,nvidia-local,turbovnc-local
+
+[Validation]
+PasswordIsHashed=yes
+
+[Partitions]
+RootSize=5G
+
+[Output]
+Format=directory
+Output=ccr-compute-node
+
+[Packages]
+WithNetwork=yes
+SkeletonTrees=./skel/ccr-yum-repos
+Packages=
+    @base
+    @core
+    biosdevname
+    chrony
+    cuda
+    curl
+    dhclient
+    dracut-network
+    efibootmgr
+    grub2
+    grub2-efi-x64
+    grub2-tools
+    grub2-tools-efi
+    grub2-tools-extra
+    grub2-tools-minimal
+    htop
+    keyutils
+    libselinux-python
+    net-tools
+    NetworkManager
+    nfs-utils
+    openssh-server
+    policycoreutils
+    rsyslog
+    selinux-policy-targeted
+    shim-x64
+    squashfs-tools
+    sudo
+    turbovnc
+    vim
+    wget
+    yum

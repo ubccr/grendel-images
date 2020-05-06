@@ -1,0 +1,15 @@
+*.cache-pre-dev
+*.cache-pre-inst
+.cache
+.mypy_cache/
+.project
+.pydevproject
+.pytest_cache/
+/.mkosi-*
+/SHA256SUMS
+/SHA256SUMS.gpg
+/mkosi.build
+/mkosi.extra
+/mkosi.nspawn
+/mkosi.rootpw
+__pycache__
