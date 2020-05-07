@@ -38,3 +38,4 @@ Packages=
     linux-generic
     binutils
     net-tools
+    rsyslog
