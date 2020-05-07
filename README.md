@@ -4,11 +4,12 @@
 
 [Grendel](https://github.com/ubccr/grendel) is a fast, easy to use bare metal
 provisioning system for High Performance Computing (HPC) Linux clusters. This
-repository contains the scripts for building OS images for use with Grendel.
-These images are geared towards HPC compute nodes but configs for building
-generic images are also provided. See [mkosi](https://github.com/ubccr/mkosi)
-for more details on how images are built. Note: we currently use a fork of
-mkosi which includes some bug fixes not available in the upstream repo.
+repository contains the scripts for building bare-metal OS images for use with
+Grendel. These images are geared towards HPC compute nodes that are PXE booted
+but configs for building generic images are also provided. See
+[mkosi](https://github.com/ubccr/mkosi) for more details on how images are
+built. Note: we currently use a fork of mkosi which includes some bug fixes not
+available in the upstream repo.
 
 ## Requirements
 
