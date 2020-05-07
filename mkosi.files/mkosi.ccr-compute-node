@@ -19,6 +19,7 @@ SkeletonTrees=./skel/ccr-yum-repos
 Packages=
     @base
     @core
+    ansible
     biosdevname
     chrony
     cuda
@@ -34,14 +35,12 @@ Packages=
     grub2-tools-minimal
     htop
     keyutils
-    libselinux-python
     net-tools
     NetworkManager
     nfs-utils
     openssh-server
     policycoreutils
     rsyslog
-    selinux-policy-targeted
     shim-x64
     squashfs-tools
     sudo
@@ -49,3 +48,5 @@ Packages=
     vim
     wget
     yum
+    screen
+    sssd
