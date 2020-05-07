@@ -37,7 +37,7 @@ log_info() {
 # kernel and initramfs will then be removed from the final image.
 make_initrd () {
     log_info "Building initrd with livenet support..."
-    local kver=$(basename /usr/lib/modules/*)
+    local kver=$(basename /lib/modules/*)
     local dest="/srv/pxelive"
     local initrd="initramfs-${kver}.img"
     local vmlinuz="vmlinuz-${kver}"
