@@ -20,27 +20,19 @@ mkosi which includes some bug fixes not available in the upstream repo.
 - dnf
 - systemd-nspawn
 
-Install mkosi in a virtual env:
+Install mkosi:
 
 ```
-$ python -mvenv venv
-$ source venv/bin/activate
 $ git clone https://github.com/ubccr/mkosi.git
 $ cd mkosi
 $ git checkout ccrdev
-$ python setup.py install
+$ sudo python setup.py install --prefix=/usr
 ```
 
-Install pylorax in the virtual env:
+Install pylorax:
 
 ```
-$ pip install pylorax
-```
-
-Alternatively, if on CentOS you can install via packages:
-
-```
-$ yum install lorax
+$ sudo yum install lorax
 ```
 
 ## Build images
@@ -72,20 +64,20 @@ image you want to build. Note: must be run as the root user:
 
 ```
 # Build generic CentOS 7 image
-$ mkosi --default=./mkosi.files/mkosi.centos7 
+$ sudo mkosi --default=./mkosi.files/mkosi.centos7 
 
 # Build generic CentOS 8 image
-mkosi --default=./mkosi.files/mkosi.centos8
+$ sudo mkosi --default=./mkosi.files/mkosi.centos8
 
 # Build generic Ubuntu Focal Fossa image
-mkosi --default=./mkosi.files/mkosi.ubuntu-focal
+$ sudo mkosi --default=./mkosi.files/mkosi.ubuntu-focal
 
 # Build generic Ubuntu Bionic Beaver image
-mkosi --default=./mkosi.files/mkosi.ubuntu-bionic
+$ sudo mkosi --default=./mkosi.files/mkosi.ubuntu-bionic
 ```
 
 4. The resulting image files will be located in the `mkosi.output` directory.
-   Each image is built as a plain directory containing the OS tree. By default,
+Each image is built as a plain directory containing the OS tree. By default,
 a `mkosi.postinst` script will be run inside the image that uses dracut to
 build an initrd containing the livenet module for booting live images.
 Additionally, a `mkosi.finalize` script will be run that packages the entire OS
