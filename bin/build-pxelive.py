@@ -45,6 +45,9 @@ def copy_boot_assets(image, boot_assets_dir, out_dir):
 
     shutil.copy(boot_assets_dir+'/vmlinuz', vmlinuz_path)
     shutil.copy(boot_assets_dir+'/initramfs.img', initrd_path)
+    chown_file(vmlinuz_path)
+    chown_file(initrd_path)
+
     # TODO should we remove this?
     # unlink(boot_assets_dir)
 
@@ -62,6 +65,16 @@ def make_pxe_live(image, image_root, out_dir):
 
         imgutils.mkrootfsimg(image_root, tmpdir+'/LiveOS/rootfs.img', size=None, label="LiveOS")
         imgutils.mksquashfs(tmpdir, squashfs_path, 'xz', [])
+
+        chown_file(squashfs_path)
+
+def chown_file(path):
+    sudo_uid = os.getenv("SUDO_UID")
+    sudo_gid = os.getenv("SUDO_GID")
+    if not (sudo_uid and sudo_gid):
+        return
+
+    os.chown(path, int(sudo_uid), int(sudo_gid))
 
 def unlink(path):
     """Remove files/directories"""
