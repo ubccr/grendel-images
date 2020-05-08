@@ -25,6 +25,7 @@
 import argparse
 import logging
 import os
+import shlex
 import shutil
 import sys
 import tempfile
@@ -37,6 +38,7 @@ def copy_boot_assets(image, boot_assets_dir, out_dir):
     Copy the kernel and initramfs.img (with livenet) from the image to the
     output directory.
     """
+    logging.debug('Copying boot assets..')
     vmlinuz_path = out_dir+'/'+image+'-vmlinuz'
     initrd_path = out_dir+'/'+image+'-initramfs.img'
     # Remove any existing initramfs/vmlinuz
@@ -56,6 +58,7 @@ def make_pxe_live(image, image_root, out_dir):
     Use pylorax to generate a SquashFS image with an embedded ext4 rootfs.img
     used for PXE booting. 
     """
+    logging.debug('Building PXE Live image...')
     squashfs_path =  out_dir+'/'+image+'-squashfs.img'
     # Remove any existing squashfs images
     unlink(squashfs_path)
@@ -67,6 +70,27 @@ def make_pxe_live(image, image_root, out_dir):
         imgutils.mksquashfs(tmpdir, squashfs_path, 'xz', [])
 
         chown_file(squashfs_path)
+
+def run_provisioning(image_root):
+    provision_cmd = os.getenv('PROVISION_CMD', '')
+    if not provision_cmd:
+        return
+
+    cmd = shlex.split(provision_cmd)
+
+    target = "--directory=" + image_root
+    cmdline = ["systemd-nspawn", target, '--settings=trusted']
+    cmdline += ('--', *cmd)
+
+    logging.debug('Provision CMD: ' + ' '.join(shlex.quote(x) for x in cmdline))
+    pid = os.fork()
+    if pid == 0:
+        os.execvp(cmdline[0], cmdline)
+    else:
+        pid, status = os.waitpid(pid, 0)
+        if status != 0:
+            logging.critical('Provisioning failed, pid = %d, status = %d', pid, status)
+            sys.exit(status)
 
 def chown_file(path):
     sudo_uid = os.getenv("SUDO_UID")
@@ -142,6 +166,7 @@ def main():
     else:
         logging.warning("Boot assets dir not found (skipping copy): %s", boot_assets_dir)
     
+    run_provisioning(image_root)
     make_pxe_live(args.image, image_root, out_dir)
 
 if __name__ == "__main__":
