@@ -43,7 +43,14 @@ These contain various settings passed to `mkosi` for building each image.
 
 Follow these steps for building images:
 
-1. Any files in `mkosi.extra` directory will be added to the image. You can
+1. Clone this repo:
+
+```
+$ git clone https://github.com/ubccr/grendel-images.git
+$ cd grendel-images
+```
+
+2. Any files in `mkosi.extra` directory will be added to the image. You can
 place anything in this directory and it will get copied directly into the final
 image. At minimum, you'll want to add ssh keys for the root user so you can
 login via ssh after the image boots. Create a directory named `mkosi.extra` and
@@ -57,10 +64,10 @@ $ chmod 600 mkosi.extra/root/.ssh/authorized_keys
 $ [Add ssh keys to the file above]
 ```
 
-2. Optionally add a root password. Create a file named `mkosi.rootpw`
+3. Optionally add a root password. Create a file named `mkosi.rootpw`
 containing the hashed root password.
 
-3. To build an image, simply run mkosi and provide the config file for the
+4. To build an image, simply run mkosi and provide the config file for the
 image you want to build. Note: must be run as the root user:
 
 ```
@@ -77,7 +84,7 @@ $ sudo mkosi --default=./mkosi.files/mkosi.ubuntu-focal
 $ sudo mkosi --default=./mkosi.files/mkosi.ubuntu-bionic
 ```
 
-4. The resulting image files will be located in the `mkosi.output` directory.
+5. The resulting image files will be located in the `mkosi.output` directory.
 Each image is built as a plain directory containing the OS tree. By default,
 a `mkosi.postinst` script will be run inside the image that uses dracut to
 build an initrd containing the livenet module for booting live images.
