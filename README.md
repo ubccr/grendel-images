@@ -98,10 +98,10 @@ These scripts can be found in the `bin/` directory.
 after building the Centos 7 image, `mkosi.output` should look like this:
 
 ```
-- mkosi.output/centos7
-- mkosi.output/centos7-vmlinuz
-- mkosi.output/centos7-initramfs.img
-- mkosi.output/centos7-squashfs.img
+mkosi.output/centos7
+mkosi.output/centos7-vmlinuz
+mkosi.output/centos7-initramfs.img
+mkosi.output/centos7-squashfs.img
 ```
 
 Copy the image files to `/var/grendel/images` or where ever you've configured
