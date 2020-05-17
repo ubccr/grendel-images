@@ -20,6 +20,7 @@ SkeletonTrees=./skel/ccr-yum-repos
 Packages=
     @base
     @core
+    @Development
     ansible
     biosdevname
     chrony
@@ -36,6 +37,7 @@ Packages=
     grub2-tools-minimal
     htop
     keyutils
+    ksh
     net-tools
     NetworkManager
     nfs-utils
