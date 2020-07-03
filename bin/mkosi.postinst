@@ -37,15 +37,28 @@ log_info() {
 # kernel and initramfs will then be removed from the final image.
 make_initrd () {
     log_info "Building initrd with livenet support..."
-    local kver=$(basename /lib/modules/*)
     local dest="/srv/pxelive"
-    local initrd="initramfs-${kver}.img"
-    local vmlinuz="vmlinuz-${kver}"
+    local initrd=""
+    local vmlinuz=""
 
-    if [ ! -f "/boot/$initrd" ]; then
+    for kv in `ls -d /lib/modules/*`
+    do
+        kver=$(basename ${kv})
+        testrd="initramfs-${kver}.img"
+        if [ -f "/boot/$testrd" ]; then
+            initrd="$testrd"
+            vmlinuz="vmlinuz-${kver}"
+            break
+        fi
+
         # Try alternate naming (ubuntu/debian)
-        initrd="initrd.img-${kver}"
-    fi
+        testrd="initrd.img-${kver}"
+        if [ -f "/boot/$testrd" ]; then
+            initrd="$testrd"
+            vmlinuz="vmlinuz-${kver}"
+            break
+        fi
+    done
 
     if [ ! -f "/boot/$initrd" ]; then
         # Bail if still can't find initrd
@@ -53,6 +66,11 @@ make_initrd () {
         exit 1
     fi
 
+    if [ ! -f "/boot/$vmlinuz" ]; then
+        # Bail if still can't find vmlinuz
+        log_info "Failed to find vmlinuz! Exiting..."
+        exit 1
+    fi
 
     mkdir -p $dest
 
