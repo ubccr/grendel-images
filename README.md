@@ -11,6 +11,12 @@ but configs for building generic images are also provided. See
 built. Note: we currently use a fork of mkosi which includes some bug fixes not
 available in the upstream repo.
 
+## Pre-build test images
+
+You can find pre-build images for use with testing grendel 
+[here](https://github.com/ubccr/grendel-images/releases). DO NOT use these
+images in production. Default root password is: ilovelinux
+
 ## Requirements
 
 - CentOS 8 / systemd 233 (or newer) 
