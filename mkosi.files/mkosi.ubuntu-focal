@@ -40,3 +40,4 @@ Packages=
     binutils
     net-tools
     rsyslog
+    dnsutils

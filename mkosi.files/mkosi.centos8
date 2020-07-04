@@ -47,3 +47,4 @@ Packages=
     vim
     wget
     yum
+    bind-utils
