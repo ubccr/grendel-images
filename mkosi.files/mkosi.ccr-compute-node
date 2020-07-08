@@ -364,3 +364,6 @@ Packages=
     xorg-x11-fonts-Type1
     xorg-x11-fonts-misc
     node_exporter
+    sqlite-devel
+    libxml++
+    libxml++-devel
