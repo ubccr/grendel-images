@@ -1,7 +1,7 @@
 [Distribution]
 Distribution=centos_epel
 Release=7
-Repositories=base,updates,extras,ccr-centos-local,dell-system-update_independent,nvidia-local,turbovnc-local,copr-node-exporter
+Repositories=base,updates,extras,ccr-centos-local,dell-system-update_independent,nvidia-local,turbovnc-local
 Mirror=http://mirrors.ccr.buffalo.edu/centos-mirror/production
 
 [Validation]
