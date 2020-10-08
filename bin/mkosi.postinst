@@ -77,6 +77,23 @@ make_initrd () {
     cp /boot/$vmlinuz $dest/vmlinuz
     cp /boot/$initrd $dest/initramfs.img
 
+    if [[ "$NAME" == "CentOS Linux" ]]; then
+	# TODO add support for debian/ubuntu
+
+	# Update ca trust store to support adding custom CA certs. dracut will
+	# try to install the CA bundle (/etc/ssl/certs/ca-bundle.crt) into the
+	# initramfs so that SSL certificate checking will work properly. If
+	# running Grendel with a custom CA you can add the CA certificate
+	# file to the following directory:
+	#   mkosi.extra/etc/pki/ca-trust/source/anchors/
+	# The cert will then get included in the image and before we run dracut
+	# we rebuild the trust store so the custom CA cert is included in the
+	# initramfs thus allowing livenet to download the live image via
+	# trusted HTTPS
+        update-ca-trust extract
+    fi
+
+
     # XXX Trim this list down to only what we need for livenet?
     dracut -v --no-hostonly --add "network base dmsquash-live livenet kernel-modules uefi-lib rootfs-block" --force $dest/initramfs.img $kver
 }
