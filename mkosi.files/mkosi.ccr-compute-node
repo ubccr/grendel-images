@@ -338,6 +338,7 @@ Packages=
     xz
     yum-langpacks
     yum-utils
+    yum-plugin-versionlock
     zip
     zsh
     lightdm
