@@ -368,3 +368,10 @@ Packages=
     sqlite-devel
     libxml++
     libxml++-devel
+    dell-system-update
+    srvadmin-idracadm7
+    srvadmin-deng
+    srvadmin-hapi
+    srvadmin-isvc
+    srvadmin-omilcore
+    srvadmin-argtable2
