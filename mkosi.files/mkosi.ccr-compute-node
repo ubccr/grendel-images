@@ -364,6 +364,7 @@ Packages=
     xorg-x11-fonts-ISO8859-9-75dpi
     xorg-x11-fonts-Type1
     xorg-x11-fonts-misc
+    libselinux-python
     node_exporter
     sqlite-devel
     libxml++
