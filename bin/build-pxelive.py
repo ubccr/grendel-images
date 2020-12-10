@@ -30,6 +30,7 @@ import shutil
 import sys
 import tempfile
 import pylorax.imgutils as imgutils
+from datetime import datetime
 
 BOOT_ASSETS_PATH = '/srv/pxelive'
 
@@ -165,6 +166,9 @@ def main():
         copy_boot_assets(args.image, boot_assets_dir, out_dir)
     else:
         logging.warning("Boot assets dir not found (skipping copy): %s", boot_assets_dir)
+
+    with open(image_root+'/etc/grendel-image-release', 'w') as buildstamp:
+        buildstamp.write(datetime.now().strftime('%Y-%m-%d.%H%M%S')+'\n')
     
     run_provisioning(image_root)
     make_pxe_live(args.image, image_root, out_dir)
