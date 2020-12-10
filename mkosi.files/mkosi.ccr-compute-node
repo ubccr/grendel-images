@@ -1,8 +1,8 @@
 [Distribution]
 Distribution=centos_epel
 Release=7
-Repositories=base,updates,extras,ccr-centos-local,dell-system-update_independent,nvidia-local,turbovnc-local
-Mirror=http://mirrors.ccr.buffalo.edu/centos-mirror/production
+Repositories=base,updates,extras,ccr-centos-local,dell-system-update_independent,dell-system-update_dependent,nvidia-local,turbovnc-local
+Mirror=http://mirrors.ccr.buffalo.edu/centos-mirror/staging
 
 [Validation]
 PasswordIsHashed=yes
