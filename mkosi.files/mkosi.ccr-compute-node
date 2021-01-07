@@ -376,3 +376,4 @@ Packages=
     srvadmin-isvc
     srvadmin-omilcore
     srvadmin-argtable2
+    pulseaudio-libs-glib2
