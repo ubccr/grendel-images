@@ -377,3 +377,6 @@ Packages=
     srvadmin-omilcore
     srvadmin-argtable2
     pulseaudio-libs-glib2
+    mesa-dri-drivers
+    mesa-libEGL-devel
+    mesa-libxatracker 
