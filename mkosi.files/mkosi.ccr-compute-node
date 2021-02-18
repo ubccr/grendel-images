@@ -380,3 +380,4 @@ Packages=
     mesa-dri-drivers
     mesa-libEGL-devel
     mesa-libxatracker 
+    libtiff-devel
