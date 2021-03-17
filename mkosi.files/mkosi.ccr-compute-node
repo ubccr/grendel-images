@@ -344,6 +344,11 @@ Packages=
     lightdm
     Thunar
     xcb-util-keysyms
+    compat-libxcb
+    libxkbcommon-x11
+    xcb-util-renderutil
+    xcb-util-wm
+    xcb-util-image
     xfce4-panel
     xfce4-session
     xfconf
