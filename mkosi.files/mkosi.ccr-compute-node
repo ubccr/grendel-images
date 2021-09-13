@@ -2,7 +2,7 @@
 Distribution=centos_epel
 Release=7
 Repositories=base,updates,extras,ccr-centos-local,dell-system-update_independent,dell-system-update_dependent,nvidia-local,turbovnc-local
-Mirror=http://mirrors.ccr.buffalo.edu/centos-mirror/staging
+Mirror=http://mirrors.ccr.buffalo.edu/centos-mirror/latest
 
 [Validation]
 PasswordIsHashed=yes
@@ -386,3 +386,9 @@ Packages=
     mesa-libEGL-devel
     mesa-libxatracker 
     libtiff-devel
+    opencl-filesystem
+    ocl-icd
+    v8
+    v8-devel
+    librsvg2-devel
+    libzstd-devel
